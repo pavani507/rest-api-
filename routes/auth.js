@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
           next();
         } else {
           res.status(401);
-          message = "Wrong password, please try again";
+          message = "Wrong password, try again";
           res.json({ message: message });
         }
       } else {

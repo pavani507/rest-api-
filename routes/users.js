@@ -16,7 +16,6 @@ router.get("/", authenticateUser, (req, res) => {
 });
 router.post("/", (req, res, next) => {
   const info = req.body;
-  console.log(info.id);
   if (!info.emailAddress) {
     const err = new Error("You have not entered sufficient credentials");
     err.status = 400;
@@ -37,7 +36,7 @@ router.post("/", (req, res, next) => {
           })
           .catch(err => {
             if (err.name === "SequelizeValidationError") {
-              err.message = "All data must be entered";
+              err.message = "You have to enter all data";
               err.status = 400;
               next(err);
             } else {

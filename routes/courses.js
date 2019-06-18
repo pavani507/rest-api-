@@ -85,7 +85,6 @@ router.post("/", authenticateUser, (req, res, next) => {
 
         Course.create(info)
           .then(course => {
-            console.log("Your course has been created");
             res.location("/api/courses/" + course.id);
             res.status(201).end();
           })
@@ -105,11 +104,11 @@ router.post("/", authenticateUser, (req, res, next) => {
 });
 
 router.put("/:id", authenticateUser, (req, res, next) => {
-  const info = req.body;
+  const id = req.params.id;
 
   Course.findOne({
     where: {
-      id: info.id
+      id: id
     }
   })
     .then(course => {
@@ -118,7 +117,7 @@ router.put("/:id", authenticateUser, (req, res, next) => {
         err.status = 403;
         next(err);
       } else if (course) {
-        course.update(info);
+        return course.update(req.body);
       } else {
         const err = new Error("We can not find course belongs to that ID");
         err.status = 400;
@@ -141,10 +140,10 @@ router.put("/:id", authenticateUser, (req, res, next) => {
 });
 
 router.delete("/:id", authenticateUser, (req, res, next) => {
-  const info = req.body;
+  const id = req.params.id;
   Course.findOne({
     where: {
-      id: info.id
+      id: id
     }
   })
     .then(course => {
