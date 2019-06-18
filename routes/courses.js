@@ -90,7 +90,7 @@ router.post("/", authenticateUser, (req, res, next) => {
           })
           .catch(err => {
             if (err.name === "SequelizeValidationError") {
-              err.message = "You have to enter all data";
+              err.message = err.message;
               err.status = 400;
               next(err);
             } else {
@@ -129,7 +129,7 @@ router.put("/:id", authenticateUser, (req, res, next) => {
     })
     .catch(err => {
       if (err.name === "SequelizeValidationError") {
-        err.message = "You have to enter all data";
+        err.message = err.message;
         err.status = 400;
         next(err);
       } else {
@@ -162,7 +162,7 @@ router.delete("/:id", authenticateUser, (req, res, next) => {
     })
     .catch(err => {
       if (err.name === "SequelizeValidationError") {
-        err.message = "You have to entered all data";
+        err.message = err.message;
         err.status = 400;
         next(err);
       } else {

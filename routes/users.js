@@ -36,7 +36,7 @@ router.post("/", (req, res, next) => {
           })
           .catch(err => {
             if (err.name === "SequelizeValidationError") {
-              err.message = "You have to enter all data";
+              err.message = err.message;
               err.status = 400;
               next(err);
             } else {
