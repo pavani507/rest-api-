@@ -105,6 +105,13 @@ router.post("/", authenticateUser, (req, res, next) => {
 
 router.put("/:id", authenticateUser, (req, res, next) => {
   const id = req.params.id;
+  const info = req.body;
+
+  if (!info.title || !info.description || !info.userId) {
+    const err = new Error("Need minimum required data ");
+    err.status = 400;
+    next(err);
+  }
 
   Course.findOne({
     where: {
